@@ -23,7 +23,7 @@ public class LogContentUtilTest {
 
         Activity activity02 = new Activity();
         activity02.setId(2L);
-        activity02.setName("营销活动002");
+        activity02.setName(null);
         activity02.setDescription("营销活动002");
         activity02.setEnable(true);
         activity02.setStartTime(LocalDateTime.now());

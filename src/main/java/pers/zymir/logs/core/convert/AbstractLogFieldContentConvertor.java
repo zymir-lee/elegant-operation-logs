@@ -1,22 +1,15 @@
 package pers.zymir.logs.core.convert;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Objects;
 
-@Component
-public class ToStringFieldLogConvertor implements FieldLogConvertor {
-
+public abstract class AbstractLogFieldContentConvertor implements LogFieldContentConvertor {
     @Override
     public String convert(Object object, String defaultValue) {
         if (Objects.isNull(object) || !getType().isInstance(object)) {
             return defaultValue;
         }
-        return object.toString();
+        return doConvert(object);
     }
 
-    @Override
-    public Class<?> getType() {
-        return Object.class;
-    }
+    protected abstract String doConvert(Object object);
 }

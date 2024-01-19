@@ -3,9 +3,9 @@ package pers.zymir.logs.core.convert;
 import org.springframework.stereotype.Component;
 
 @Component
-public class VoidFieldLogConvertor implements FieldLogConvertor {
+public class VoidLogFieldContentConvertor extends AbstractLogFieldContentConvertor {
     @Override
-    public String convert(Object object, String defaultValue) {
+    protected String doConvert(Object object) {
         return "";
     }
 

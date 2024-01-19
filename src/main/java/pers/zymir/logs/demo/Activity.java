@@ -3,7 +3,7 @@ package pers.zymir.logs.demo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import pers.zymir.logs.core.anno.LogField;
-import pers.zymir.logs.core.convert.LocalDateTimeFieldLogConvertor;
+import pers.zymir.logs.core.convert.LocalDateTimeLogFieldContentConvertor;
 
 import java.time.LocalDateTime;
 
@@ -20,11 +20,11 @@ public class Activity {
     @LogField(name = "开启状态")
     private boolean enable;
 
-    @LogField(name = "开始时间", contentConvertor = LocalDateTimeFieldLogConvertor.class)
+    @LogField(name = "开始时间", contentConvertor = LocalDateTimeLogFieldContentConvertor.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @LogField(name = "结束时间", contentConvertor = LocalDateTimeFieldLogConvertor.class)
+    @LogField(name = "结束时间", contentConvertor = LocalDateTimeLogFieldContentConvertor.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 }
