@@ -1,10 +1,8 @@
 package pers.zymir.logs;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import pers.zymir.logs.core.LogContentUtil;
-import pers.zymir.logs.core.convert.FieldLogConvertor;
 import pers.zymir.logs.demo.Activity;
 
 import java.time.LocalDateTime;
