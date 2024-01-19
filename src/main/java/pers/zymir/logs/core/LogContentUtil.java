@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import pers.zymir.logs.core.anno.LogField;
 import pers.zymir.logs.core.convert.FieldLogConvertor;
+import pers.zymir.logs.core.convert.FieldLogConvertorHolder;
 import pers.zymir.logs.core.entity.FieldContentMeta;
 
 import java.lang.reflect.Field;
@@ -60,12 +61,11 @@ public class LogContentUtil {
             return containsLogField && StrUtil.isNotBlank(logField.emptyContent()) ? logField.emptyContent() : "空";
         }
 
-        if (containsLogField && Objects.nonNull(logField.contentConvertor())) {
+        if (containsLogField) {
             FieldLogConvertor convertor = SpringUtil.getBean(logField.contentConvertor());
-            return convertor.convert(fieldValue);
+            return convertor.convert(fieldValue, StrUtil.isNotBlank(logField.emptyContent()) ? logField.emptyContent() : "空");
         }
-
-        FieldLogConvertor systemDefaultConvertor = (FieldLogConvertor) SpringUtil.getBean(fieldValue.getClass());
-        return Objects.isNull(systemDefaultConvertor) ? fieldValue.toString() : systemDefaultConvertor.convert(fieldValue);
+        FieldLogConvertor systemDefaultConvertor = FieldLogConvertorHolder.getByFieldClass(fieldValue.getClass());
+        return Objects.isNull(systemDefaultConvertor) ? fieldValue.toString() : systemDefaultConvertor.convert(fieldValue, "空");
     }
 }
