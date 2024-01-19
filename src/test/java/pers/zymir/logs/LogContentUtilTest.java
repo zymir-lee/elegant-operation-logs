@@ -13,13 +13,8 @@ import java.util.List;
 @SpringBootTest(classes = ElegantOperationLogsApplication.class)
 public class LogContentUtilTest {
 
-    @Autowired
-    List<FieldLogConvertor> convertors;
-
     @Test
     public void logContentGenTest() {
-
-        System.out.println(convertors);
         Activity activity01 = new Activity();
         activity01.setId(1L);
         activity01.setName("营销活动001");
@@ -38,6 +33,6 @@ public class LogContentUtilTest {
 
 
         List<String> contents = LogContentUtil.buildContent(LogContentUtil.beanToMap(activity01), LogContentUtil.beanToMap(activity02));
-        System.out.println(contents);
+        contents.forEach(System.out::println);
     }
 }

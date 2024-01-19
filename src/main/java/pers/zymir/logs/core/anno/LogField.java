@@ -2,6 +2,7 @@ package pers.zymir.logs.core.anno;
 
 import pers.zymir.logs.core.convert.FieldLogConvertor;
 import pers.zymir.logs.core.convert.ToStringFieldLogConvertor;
+import pers.zymir.logs.core.convert.VoidFieldLogConvertor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -15,5 +16,5 @@ public @interface LogField {
 
   String emptyContent() default "空";
 
-  Class<? extends FieldLogConvertor> contentConvertor() default ToStringFieldLogConvertor.class;
+  Class<? extends FieldLogConvertor> contentConvertor() default VoidFieldLogConvertor.class;
 }

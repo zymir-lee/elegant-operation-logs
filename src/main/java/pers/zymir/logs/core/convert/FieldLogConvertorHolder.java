@@ -19,6 +19,5 @@ public class FieldLogConvertorHolder {
     @Autowired
     public void init(List<FieldLogConvertor> fieldLogConvertors) {
         fieldLogConvertors.forEach(convertor -> FIELD_LOG_CONVERTOR_MAP.put(convertor.getType(), convertor));
-        System.out.println(FIELD_LOG_CONVERTOR_MAP);
     }
 }

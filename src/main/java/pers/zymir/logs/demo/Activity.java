@@ -17,6 +17,7 @@ public class Activity {
     @LogField(name = "活动描述")
     private String description;
 
+    @LogField(name = "开启状态")
     private boolean enable;
 
     @LogField(name = "开始时间", contentConvertor = LocalDateTimeFieldLogConvertor.class)
