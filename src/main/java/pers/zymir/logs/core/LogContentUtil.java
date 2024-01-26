@@ -67,8 +67,9 @@ public class LogContentUtil {
                 LogFieldContentConvertor convertor = SpringUtil.getBean(logField.contentConvertor());
                 return convertor.convert(fieldValue, emptyContent);
             }
-            return emptyContent;
         }
+
+        // 尝试按照类型查找系统内置的转换器
         LogFieldContentConvertor systemDefaultConvertor = LogFieldContentConvertorHolder.getByFieldClass(fieldValue.getClass());
         return Objects.isNull(systemDefaultConvertor) ? fieldValue.toString() : systemDefaultConvertor.convert(fieldValue, "空");
     }
