@@ -57,16 +57,23 @@ public class LogContentUtil {
     private static String convert2String(FieldContentMeta fieldContentMeta) {
         Object fieldValue = fieldContentMeta.getFieldValue();
         LogField logField = fieldContentMeta.getLogField();
-        boolean containsLogField = Objects.nonNull(logField);
-        if (Objects.isNull(fieldValue)) {
-            return containsLogField && StrUtil.isNotBlank(logField.emptyContent()) ? logField.emptyContent() : "空";
-        }
-
-        if (containsLogField && logField.contentConvertor() != VoidLogFieldContentConvertor.class) {
-            LogFieldContentConvertor convertor = SpringUtil.getBean(logField.contentConvertor());
-            return convertor.convert(fieldValue, StrUtil.isNotBlank(logField.emptyContent()) ? logField.emptyContent() : "空");
+        boolean customLogFiled = Objects.nonNull(logField);
+        if (customLogFiled) {
+            String emptyContent = logField.emptyContent();
+            if (Objects.isNull(fieldValue)) {
+                return emptyContent;
+            }
+            if (isCustomFiledContentConvert(logField)) {
+                LogFieldContentConvertor convertor = SpringUtil.getBean(logField.contentConvertor());
+                return convertor.convert(fieldValue, emptyContent);
+            }
+            return emptyContent;
         }
         LogFieldContentConvertor systemDefaultConvertor = LogFieldContentConvertorHolder.getByFieldClass(fieldValue.getClass());
         return Objects.isNull(systemDefaultConvertor) ? fieldValue.toString() : systemDefaultConvertor.convert(fieldValue, "空");
+    }
+
+    private static boolean isCustomFiledContentConvert(LogField logField) {
+        return Objects.nonNull(logField.contentConvertor()) && logField.contentConvertor() != VoidLogFieldContentConvertor.class;
     }
 }
